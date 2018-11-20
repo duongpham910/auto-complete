@@ -1,5 +1,7 @@
 import React from 'react'
 import Autocomplete from 'react-autocomplete';
+import cities from './cities.json';
+
 
 class AutoCompleteContainer extends React.Component {
   constructor(props) {
@@ -43,14 +45,16 @@ class AutoCompleteContainer extends React.Component {
 
   renderItem(item, isHighlighted){
     return (
-      <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
-        {item.label}
+      <div
+        style={{background: isHighlighted ? 'lightgray' : 'white'}}
+        key={item.locationId}>
+        {item.name}
       </div>
     );
   }
 
   getItemValue(item){
-    return `${item.value} - ${item.label}`;
+    return `${item.name}`;
   }
 
   render(){
@@ -58,7 +62,7 @@ class AutoCompleteContainer extends React.Component {
       <div>
         <Autocomplete
           getItemValue={this.getItemValue}
-          items={this.state.autocompleteData}
+          items={cities}
           renderItem={this.renderItem}
           value={this.state.value}
           onChange={this.onChange}
